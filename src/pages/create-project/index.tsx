@@ -14,25 +14,10 @@ import {
   Checkbox,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { useForm, SubmitHandler } from "react-hook-form";
 import useContract from "@/hooks/useContract";
 
 import abi from '@/assets/abi/ContentPool.abi.json';
 const contractAddr = "0xA0fFb312b367F1559979acd51218EbE2a61137C6"
-
-type FormValues = {
-  headLine: string;
-  description: string;
-  budget: number;
-  url: string;
-  previewUrl: string;
-  total: number;
-  selectType: number;
-  flows?: number;
-  likes?: number;
-  comments?: number;
-  mirrors?: number;
-};
 
 type ContentDto = {
   headline: string;
@@ -47,7 +32,7 @@ type ContentDto = {
 
 type RequestQualificationDto = {
   flows?: number;
-  tags?: string[];
+  tags?: any[];
 }
 
 type ClaimQualificationDto = {
@@ -57,9 +42,9 @@ type ClaimQualificationDto = {
 }
 
 type PublishContentDto = {
-  contentDto?: ContentDto;
-  requestDto?: RequestQualificationDto;
-  claimDto?: ClaimQualificationDto;
+  contentDto: ContentDto;
+  requestDto: RequestQualificationDto | undefined;
+  claimDto: ClaimQualificationDto;
 }
 
 interface IProps {
@@ -70,6 +55,29 @@ interface IProps {
 }
 
 function CreateProject() {
+  const [headLine, setHeadLine] = React.useState<string>("");
+  const [description, setDescription] = React.useState<string>("");
+  const [budget, setBudget] = React.useState<number>(1);
+  const [url, setUrl] = React.useState<string>("");
+  const [previewUrl, setPreviewUrl] = React.useState<string>("");
+  const [total, setTotal] = React.useState<number>(1);
+  const [typ, setTyp] = React.useState<number>(0);
+  const [flows, setFlows] = React.useState<number>(0);
+  const [likes, setLikes] = React.useState<number>(0);
+  const [comments, setComments] = React.useState<number>(0);
+  const [mirrors, setMirrors] = React.useState<number>(0);
+  const [checkArr, setCheckArr] = React.useState<any[]>([]);
+  const [checkData, setCheckData] = React.useState([
+    { value: 0, label: 'DeFi', checked: true },
+    { value: 1, label: 'NFT', checked: true },
+    { value: 2, label: 'GameFi', checked: true },
+    { value: 3, label: 'DAO', checked: true },
+    { value: 4, label: 'SocialFi', checked: true },
+    { value: 5, label: 'Metaverse', checked: true },
+    { value: 6, label: 'Ecosystem', checked: true },
+    { value: 7, label: 'Other', checked: true },
+  ]);
+
   // const approveDto = {
   //   spender: "0x15af10B0eD449a793ECdFDfdb935a86DA1B6dea2",
   //   amount: 100,
@@ -83,134 +91,145 @@ function CreateProject() {
   // useState()
   // const { data, isLoading, isSuccess, write } = useContract(args)
 
-  // const [contentDto, setContentDto] = React.useState<ContentDto>();
-  // const [requestQualificationDto, setRequestQualificationDto] = React.useState<RequestQualificationDto>();
-  // const [claimQualificationDto, setClaimQualificationDto] = React.useState<ClaimQualificationDto>();
-  const [publishContentDto, setPublishContentDto] = React.useState<PublishContentDto>();
-
   const functionName = "publishContent"
   const args: IProps = {
     address: contractAddr,
     abi: abi,
     functionName: functionName,
-    args: [publishContentDto],
+    args: [{
+      contentDto: {
+        headline: headLine,
+        description: description,
+        typ: typ,
+        status: 0,
+        budget: budget,
+        url: url,
+        previewUrl: previewUrl,
+        total: total,
+      },
+      requestDto: {
+        flows: flows,
+        tags: checkArr,
+      },
+      claimDto: {
+        likes: likes,
+        comments: comments,
+        mirrors: mirrors,
+      },
+    }],
   }
   const { data, isLoading, isSuccess, write } = useContract(args)
-  console.log("data: " + data);
-  console.log("isLoading: " + isLoading);
-  console.log("isSuccess: " + isSuccess);
-  console.log("write: " + write);
-
   const navigate = useNavigate();
-  const [selectType, setSelectType] = React.useState(0);
-  const handleChange = (event: React.ChangeEvent<{ value: number }>) => {
-    setSelectType(event.target.value);
-  };
-  const [checkArr, setCheckArr] = React.useState<any[]>([]);
-  const [checkData, setCheckData] = React.useState([
-      { value: 0, label: '第一', checked: true },
-      { value: 1, label: '第二', checked: true },
-      { value: 2, label: 'A', checked: true },
-      { value: 3, label: 'B', checked: true },
-      { value: 4, label: 'C', checked: true },
-      { value: 5, label: 'D', checked: true },
-      { value: 6, label: 'E', checked: true },
-    ]);
-  const { register, handleSubmit } = useForm<FormValues>();
-  const handleCreate: SubmitHandler<FormValues> = dd => {
-    const contentDto: ContentDto = {
-      headline: dd.headLine,
-      description: dd.description,
-      typ: dd.selectType,
-      status: 0,
-      budget: dd.budget,
-      url: dd.url,
-      previewUrl: dd.previewUrl,
-      total: dd.total,
-    };
-
-    const requestQualificationDto: RequestQualificationDto = {
-      flows: dd.flows,
-      tags: checkArr,
-    }
-
-    const claimQualificationDto: ClaimQualificationDto = {
-      likes: dd.likes,
-      comments: dd.comments,
-      mirrors: dd.mirrors,
-    }
-
-    const publishContentDto: PublishContentDto = {
-      contentDto: contentDto,
-      requestDto: requestQualificationDto,
-      claimDto: claimQualificationDto,
-    }
-    setPublishContentDto(publishContentDto);
-    write?.();
-  };
 
   return (
     <div className={styles.createProjectContainer}>
       <Box sx={{ padding: '0 150px' }} className={styles.formWrapper}>
-        <form onSubmit={handleSubmit(handleCreate)}>
+        <form onSubmit={
+          (e) => {
+            e.preventDefault()
+            console.log({
+              contentDto: {
+                headline: headLine,
+                description: description,
+                typ: typ,
+                status: 0,
+                budget: budget,
+                url: url,
+                previewUrl: previewUrl,
+                total: total,
+              },
+              requestDto: {
+                flows: flows,
+                tags: checkArr,
+              },
+              claimDto: {
+                likes: likes,
+                comments: comments,
+                mirrors: mirrors,
+              },
+            })
+            write?.()
+          }}
+        >
           <h1>Create An Content</h1>
           <Stack spacing={5}>
             <FormControl required>
               <FormLabel component="legend">
                 HeadLine
               </FormLabel>
-              <Input fullWidth {...register("headLine")} />
+              <Input
+                  onChange={
+                    (e) => {
+                      setHeadLine(e.target.value)
+                    }
+                  }
+              />
             </FormControl>
             <FormControl>
               <FormLabel component="legend">
                 Description
               </FormLabel>
-              <Input fullWidth {...register("description")} />
+              <Input
+                  onChange={(e) => setDescription(e.target.value)}
+              />
             </FormControl>
             <FormControl required>
               <FormLabel component="legend">
                 Type
               </FormLabel>
-              <Select {...register("selectType")} value={selectType} onChange={handleChange}>
+              <Select
+                  onChange={(e: React.ChangeEvent<{ value: number }>) => setTyp(e.target.value)}
+                  value={typ}
+              >
                 <MenuItem value="0">Open</MenuItem>
                 <MenuItem value="1">Restricted</MenuItem>
               </Select>
             </FormControl>
-            <FormControl>
+            <FormControl required>
               <FormLabel component="legend">
                 Budget
               </FormLabel>
-              <Input fullWidth {...register("budget")} />
+              <Input
+                  onChange={(e: React.ChangeEvent<{ value: number }>) => setBudget(e.target.value)}
+              />
             </FormControl>
             <FormControl>
               <FormLabel component="legend">
               Url
               </FormLabel>
-              <Input fullWidth {...register("url")} />
+              <Input
+                  onChange={(e) => setUrl(e.target.value)}
+              />
             </FormControl>
             <FormControl>
               <FormLabel component="legend">
               previewUrl
               </FormLabel>
-              <Input fullWidth {...register("previewUrl")} />
+              <Input
+                  onChange={(e) => setPreviewUrl(e.target.value)}
+              />
             </FormControl>
-            <FormControl>
+            <FormControl required>
               <FormLabel component="legend">
               Total
               </FormLabel>
-              <Input fullWidth {...register("total")} />
+              <Input
+                  onChange={(e: React.ChangeEvent<{ value: number }>) => setTotal(e.target.value)}
+              />
             </FormControl>
           </Stack>
 
           {/* 切换成restricted */}
-          <div style={{ display: selectType == 0 ? 'none' : ''}}>
+          <div style={{ display: typ == 0 ? 'none' : ''}}>
             <h1>Restricted Qualification</h1>
             <Stack spacing={5}>
               <FormControl>
                 <FormLabel component="legend">
                 Flows
                 </FormLabel>
-                <Input fullWidth {...register("flows")} />
+                <Input
+                    onChange={(e: React.ChangeEvent<{ value: number }>) => setFlows(e.target.value)}
+                />
               </FormControl>
               <FormControl>
                 <FormLabel component="legend">
@@ -241,19 +260,25 @@ function CreateProject() {
               <FormLabel component="legend">
                 Likes
               </FormLabel>
-              <Input fullWidth {...register("likes")} />
+              <Input
+                  onChange={(e: React.ChangeEvent<{ value: number }>) => setLikes(e.target.value)}
+              />
             </FormControl>
             <FormControl>
               <FormLabel component="legend">
                 Comments
               </FormLabel>
-              <Input fullWidth {...register("comments")} />
+              <Input
+                  onChange={(e: React.ChangeEvent<{ value: number }>) => setComments(e.target.value)}
+              />
             </FormControl>
             <FormControl>
               <FormLabel component="legend">
                 Mirrors
               </FormLabel>
-              <Input fullWidth {...register("mirrors")}/>
+              <Input
+                  onChange={(e: React.ChangeEvent<{ value: number }>) => setMirrors(e.target.value)}
+              />
             </FormControl>
           </Stack>
           <Button type="submit" sx={{ marginTop: '100px' }} size="large" variant="contained" disabled={!write || isLoading} >
