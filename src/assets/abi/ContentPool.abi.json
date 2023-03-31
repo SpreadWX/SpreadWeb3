@@ -1,0 +1,1240 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_token",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_minBudget",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_stakingAmount",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_broadcaster",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_contentId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "Claim",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_promoter",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_contentId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_budget",
+        "type": "uint256"
+      }
+    ],
+    "name": "PublishContent",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_broadcaster",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_contenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "RequestContent",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "staker",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "Staked",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "staker",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "Unstaked",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "broadcasterContentIds",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "broadcastersForContent",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "broadcaster",
+        "type": "address"
+      },
+      {
+        "internalType": "bool",
+        "name": "claimed",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_contentId",
+        "type": "uint256"
+      }
+    ],
+    "name": "claim",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "claimQualificationId",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "claimQualifications",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "likes",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "comments",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "mirrors",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "contentId",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "contents",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "promoter",
+        "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "headline",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "description",
+        "type": "string"
+      },
+      {
+        "internalType": "enum model.ContentType",
+        "name": "typ",
+        "type": "uint8"
+      },
+      {
+        "internalType": "enum model.ContentStatus",
+        "name": "status",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint256",
+        "name": "budget",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "url",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "previewUrl",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "total",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "createTime",
+        "type": "uint256"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "requestedCnt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "completedCnt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "balance",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "requestQualificationId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "claimQualificationId",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct model.ContentData",
+        "name": "data",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_contentId",
+        "type": "uint256"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "pageIndex",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "pageSize",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "isDescend",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct model.PageQueryCondition",
+        "name": "condition",
+        "type": "tuple"
+      }
+    ],
+    "name": "getBroadcasterByContentId",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "total",
+        "type": "uint256"
+      },
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "broadcaster",
+            "type": "address"
+          },
+          {
+            "internalType": "bool",
+            "name": "claimed",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct model.BroadcasterClaimed[]",
+        "name": "broadcasters",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_contentId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getContent",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "id",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "promoter",
+            "type": "address"
+          },
+          {
+            "internalType": "string",
+            "name": "headline",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "description",
+            "type": "string"
+          },
+          {
+            "internalType": "enum model.ContentType",
+            "name": "typ",
+            "type": "uint8"
+          },
+          {
+            "internalType": "enum model.ContentStatus",
+            "name": "status",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint256",
+            "name": "budget",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "url",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "previewUrl",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "total",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createTime",
+            "type": "uint256"
+          },
+          {
+            "components": [
+              {
+                "internalType": "uint256",
+                "name": "requestedCnt",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "completedCnt",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "balance",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "requestQualificationId",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "claimQualificationId",
+                "type": "uint256"
+              }
+            ],
+            "internalType": "struct model.ContentData",
+            "name": "data",
+            "type": "tuple"
+          }
+        ],
+        "internalType": "struct model.Content",
+        "name": "_content",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "pageIndex",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "pageSize",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "isDescend",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct model.PageQueryCondition",
+        "name": "condition",
+        "type": "tuple"
+      }
+    ],
+    "name": "getContents",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "total",
+        "type": "uint256"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "id",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "promoter",
+            "type": "address"
+          },
+          {
+            "internalType": "string",
+            "name": "headline",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "description",
+            "type": "string"
+          },
+          {
+            "internalType": "enum model.ContentType",
+            "name": "typ",
+            "type": "uint8"
+          },
+          {
+            "internalType": "enum model.ContentStatus",
+            "name": "status",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint256",
+            "name": "budget",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "url",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "previewUrl",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "total",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createTime",
+            "type": "uint256"
+          },
+          {
+            "components": [
+              {
+                "internalType": "uint256",
+                "name": "requestedCnt",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "completedCnt",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "balance",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "requestQualificationId",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "claimQualificationId",
+                "type": "uint256"
+              }
+            ],
+            "internalType": "struct model.ContentData",
+            "name": "data",
+            "type": "tuple"
+          }
+        ],
+        "internalType": "struct model.Content[]",
+        "name": "cs",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_user",
+        "type": "address"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "pageIndex",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "pageSize",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "isDescend",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct model.PageQueryCondition",
+        "name": "condition",
+        "type": "tuple"
+      }
+    ],
+    "name": "getPublishContentsForUser",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "total",
+        "type": "uint256"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "id",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "promoter",
+            "type": "address"
+          },
+          {
+            "internalType": "string",
+            "name": "headline",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "description",
+            "type": "string"
+          },
+          {
+            "internalType": "enum model.ContentType",
+            "name": "typ",
+            "type": "uint8"
+          },
+          {
+            "internalType": "enum model.ContentStatus",
+            "name": "status",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint256",
+            "name": "budget",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "url",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "previewUrl",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "total",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createTime",
+            "type": "uint256"
+          },
+          {
+            "components": [
+              {
+                "internalType": "uint256",
+                "name": "requestedCnt",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "completedCnt",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "balance",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "requestQualificationId",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "claimQualificationId",
+                "type": "uint256"
+              }
+            ],
+            "internalType": "struct model.ContentData",
+            "name": "data",
+            "type": "tuple"
+          }
+        ],
+        "internalType": "struct model.Content[]",
+        "name": "cs",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_user",
+        "type": "address"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "pageIndex",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "pageSize",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "isDescend",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct model.PageQueryCondition",
+        "name": "condition",
+        "type": "tuple"
+      }
+    ],
+    "name": "getReceiveContentsForUser",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "total",
+        "type": "uint256"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "id",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "promoter",
+            "type": "address"
+          },
+          {
+            "internalType": "string",
+            "name": "headline",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "description",
+            "type": "string"
+          },
+          {
+            "internalType": "enum model.ContentType",
+            "name": "typ",
+            "type": "uint8"
+          },
+          {
+            "internalType": "enum model.ContentStatus",
+            "name": "status",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint256",
+            "name": "budget",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "url",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "previewUrl",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "total",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createTime",
+            "type": "uint256"
+          },
+          {
+            "components": [
+              {
+                "internalType": "uint256",
+                "name": "requestedCnt",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "completedCnt",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "balance",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "requestQualificationId",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "claimQualificationId",
+                "type": "uint256"
+              }
+            ],
+            "internalType": "struct model.ContentData",
+            "name": "data",
+            "type": "tuple"
+          }
+        ],
+        "internalType": "struct model.Content[]",
+        "name": "cs",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_staker",
+        "type": "address"
+      }
+    ],
+    "name": "getStakedBalance",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "minBudget",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "promoterContentIds",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "components": [
+          {
+            "components": [
+              {
+                "internalType": "string",
+                "name": "headline",
+                "type": "string"
+              },
+              {
+                "internalType": "string",
+                "name": "description",
+                "type": "string"
+              },
+              {
+                "internalType": "enum model.ContentType",
+                "name": "typ",
+                "type": "uint8"
+              },
+              {
+                "internalType": "enum model.ContentStatus",
+                "name": "status",
+                "type": "uint8"
+              },
+              {
+                "internalType": "uint256",
+                "name": "budget",
+                "type": "uint256"
+              },
+              {
+                "internalType": "string",
+                "name": "url",
+                "type": "string"
+              },
+              {
+                "internalType": "string",
+                "name": "previewUrl",
+                "type": "string"
+              },
+              {
+                "internalType": "uint256",
+                "name": "total",
+                "type": "uint256"
+              }
+            ],
+            "internalType": "struct model.ContentDto",
+            "name": "contentDto",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "internalType": "uint256",
+                "name": "flows",
+                "type": "uint256"
+              },
+              {
+                "internalType": "string[]",
+                "name": "tags",
+                "type": "string[]"
+              }
+            ],
+            "internalType": "struct model.RequestQualificationDto",
+            "name": "requestDto",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "internalType": "uint256",
+                "name": "likes",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "comments",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "mirrors",
+                "type": "uint256"
+              }
+            ],
+            "internalType": "struct model.ClaimQualificationDto",
+            "name": "claimDto",
+            "type": "tuple"
+          }
+        ],
+        "internalType": "struct model.PublishContentDto",
+        "name": "_dto",
+        "type": "tuple"
+      }
+    ],
+    "name": "publishContent",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_contentId",
+        "type": "uint256"
+      }
+    ],
+    "name": "requestBroadcast",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "requestQualificationId",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "requestQualifications",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "flows",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_minBudget",
+        "type": "uint256"
+      }
+    ],
+    "name": "setMinBudget",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_stakingAmount",
+        "type": "uint256"
+      }
+    ],
+    "name": "setStakingAmount",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "stake",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "stakedBalances",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "stakingAmount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "tags",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "token",
+    "outputs": [
+      {
+        "internalType": "contract IERC20",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "unstake",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]

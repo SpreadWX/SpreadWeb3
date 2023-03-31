@@ -1,0 +1,13 @@
+<svg width="140" height="100" xmlns="http://www.w3.org/2000/svg">
+ <g>
+  <title>Layer 1</title>
+  <text xml:space="preserve" text-anchor="start" font-family="Noto Sans JP" font-size="33" id="svg_1" y="64.5" x="0.53902" stroke-width="0" stroke="#000" fill="#AF84A3" font-weight="bold" font-style="italic">SPREAD</text>
+  <path fill="#AF84A3" stroke="#000" stroke-width="0" d="m-9.67,37.2975l0,0c0,-0.27614 0.67157,-0.5 1.5,-0.5l0,0c0.39782,0 0.77936,0.05268 1.06066,0.14645c0.2813,0.09377 0.43934,0.22094 0.43934,0.35355l0,0c0,0.27614 -0.67157,0.5 -1.5,0.5l0,0c-0.82843,0 -1.5,-0.22386 -1.5,-0.5zm0.75,0l0,0c0,0.13807 0.33579,0.25 0.75,0.25c0.41421,0 0.75,-0.11193 0.75,-0.25c0,-0.13807 -0.33579,-0.25 -0.75,-0.25l0,0c-0.41421,0 -0.75,0.11193 -0.75,0.25z" id="svg_4"/>
+  <path fill="#AF84A3" stroke-width="0" d="m58.85249,81.54289l7,-10.9736l7,10.9736l-3.5,0l0,11.0264l-7,0l0,-11.0264l-3.5,0z" id="svg_5" stroke="#000"/>
+  <path fill="#AF84A3" stroke-width="0" d="m-6.6775,62.65928l1,0.9976l-0.5,0l0,1.0024l-1,0l0,-1.0024l0.5,-0.9976z" id="svg_6" stroke="#000"/>
+  <path fill="#AF84A3" stroke-width="0" d="m57.85249,14.54049l6.5,-11.9712l6.5,11.9712l-3.25,0l0,12.0288l-6.5,0l0,-12.0288l-3.25,0z" id="svg_7" stroke="#000"/>
+  <path transform="rotate(24 90.3525 20.5693)" fill="#AF84A3" stroke-width="0" d="m83.85249,20.54049l6.5,-11.9712l6.5,11.9712l-3.25,0l0,12.0288l-6.5,0l0,-12.0288l-3.25,0z" id="svg_8" stroke="#000"/>
+  <path transform="rotate(-27 36.3525 21.5693)" fill="#AF84A3" stroke-width="0" d="m29.85249,21.54049l6.5,-11.9712l6.5,11.9712l-3.25,0l0,12.0288l-6.5,0l0,-12.0288l-3.25,0z" id="svg_9" stroke="#000"/>
+ </g>
+
+</svg>
