@@ -121,9 +121,9 @@ function CreateProject() {
   const { data, isLoading, isSuccess, write } = useContract(args)
   const navigate = useNavigate();
 
-  if (isSuccess) {
-    window.location.href="/";
-  }
+  // if (isSuccess) {
+  //   window.location.href="/";
+  // }
 
   return (
     <div className={styles.createProjectContainer}>
@@ -288,10 +288,12 @@ function CreateProject() {
             {isLoading ? 'Creating...' : 'Create Content'}
           </Button>
           {isSuccess && (
-            <div>
-                Successfully Create Content!
+              <div>
+                <br/>
+                Create Content Successfully!
                 <div>
-                  <a href={`https://etherscan.io/tx/${data?.hash}`}>Etherscan</a>
+                  {/*<a href={`https://etherscan.io/tx/${data?.hash}`}>TXHash: ${data?.hash}</a>*/}
+                  TXHash: {data?.hash}
                 </div>
               </div>
           )}
