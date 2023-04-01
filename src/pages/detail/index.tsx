@@ -55,48 +55,82 @@ function a11yProps(index: number) {
 const Detail = () => {
     const { address = '', isConnected } = useAccount();
     console.log("address:", address, "isConnected:", isConnected);
-    const query = new URLSearchParams(useLocation()?.search)
-    var id =query.get('id')
+    const query = new URLSearchParams(useLocation()?.search);
+    const id = query.get('id');
     console.log("id==>", id)
     const result =  useContractRead({
         address: contract,
         abi: abi,
         functionName: 'getContent',
         args:   [id],
-        overrides: { from: isConnected ? address:'0x350b7BD90B1A94A022ACc7f1B9B6907FAc872bdd'},
+        overrides: { from: isConnected ? address:'0x350b7BD90B1A94A022ACc7f1B9B6907FAc872bdd' },
     } as UseContractReadConfig<typeof abi, 'getContent'>)
+    console.log("result:", result)
+    console.log("err:", result.error)
     const res = result.data as any[]
     console.log("res:", res)
 
+    // const contentVo:ContentVo = {
+    //     content: {
+    //         id: res[0][0],
+    //         promoter: res[0][1],
+    //         headline: res[0][2],
+    //         description: res[0][3],
+    //         typ: res[0][4],
+    //         status: res[0][5],
+    //         budget: res[0][6],
+    //         url: res[0][7],
+    //         previewUrl: res[0][8],
+    //         total: res[0][9],
+    //         createTime: res[0][10],
+    //         requestedCnt: res[0][11][0],
+    //         completedCnt: res[0][11][1],
+    //         balance: res[0][11][2],
+    //         requestQualificationId: res[0][11][3],
+    //         claimQualificationId: res[0][11][4],
+    //     },
+    //     requestQualification: {
+    //         id: res[1][0],
+    //         flows: res[1][1],
+    //         tags: res[1][2],
+    //     },
+    //     claimQualification: {
+    //         id: res[2][0],
+    //         likes: res[2][1],
+    //         comments: res[2][2],
+    //         mirrors: res[2][3]
+    //     }
+    // }
+    const currentDate = new Date().getSeconds();
     const contentVo:ContentVo = {
         content: {
-            id: res[0][0],
-            promoter: res[0][1],
-            headline: res[0][2],
-            description: res[0][3],
-            typ: res[0][4],
-            status: res[0][5],
-            budget: res[0][6],
-            url: res[0][7],
-            previewUrl: res[0][8],
-            total: res[0][9],
-            createTime: res[0][10],
-            requestedCnt: res[0][11][0],
-            completedCnt: res[0][11][1],
-            balance: res[0][11][2],
-            requestQualificationId: res[0][11][3],
-            claimQualificationId: res[0][11][4],
+            id: parseInt(id==null?"0":id),
+            promoter: "0x350b7BD90B1A94A022ACc7f1B9B6907FAc872bdd",
+            headline: "test",
+            description: "test",
+            typ: 0,
+            status: 0,
+            budget: 1,
+            url: "",
+            previewUrl: "",
+            total: 1,
+            createTime: currentDate,
+            requestedCnt: 0,
+            completedCnt: 0,
+            balance: 1,
+            requestQualificationId: 0,
+            claimQualificationId: 0,
         },
         requestQualification: {
-            id: res[1][0],
-            flows: res[1][1],
-            tags: res[1][2],
+            id: 0,
+            flows: 0,
+            tags: [],
         },
         claimQualification: {
-            id: res[2][0],
-            likes: res[2][1],
-            comments: res[2][2],
-            mirrors: res[2][3]
+            id: 1,
+            likes: 1,
+            comments: 1,
+            mirrors: 1
         }
     }
     console.log("content:", contentVo?.content)
