@@ -21,7 +21,7 @@ const ShowInfo = (props: IProps) => {
         <SearchIcon sx={{ mr: 1, my: 0.5 }} />
         <Input placeholder="Placeholder" onChange={changeSearch} />
       </Box>
-      <Button variant="contained" style={{ padding: '12px 30px'}} onClick={() => navigate('/create')}>Create Ad</Button>
+      <Button variant="contained" style={{ padding: '12px 30px'}} onClick={() => navigate('/create')}>Create Content</Button>
     </div>
     
       <Divider light style={{ borderColor: 'rgba(255, 255, 255, 0.5)'}} />

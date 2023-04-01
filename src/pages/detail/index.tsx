@@ -106,8 +106,8 @@ const Detail = () => {
         content: {
             id: parseInt(id==null?"0":id),
             promoter: "0x350b7BD90B1A94A022ACc7f1B9B6907FAc872bdd",
-            headline: "test_5",
-            description: "test_5",
+            headline: "test_8",
+            description: "test_8",
             typ: 1,
             status: 0,
             budget: 1,
