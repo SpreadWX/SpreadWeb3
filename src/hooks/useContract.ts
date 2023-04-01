@@ -1,4 +1,9 @@
-import { usePrepareContractWrite, useContractWrite, useWaitForTransaction } from 'wagmi';
+// @ts-ignore
+
+import { usePrepareContractWrite, useContractWrite, useWaitForTransaction} from 'wagmi';
+
+
+
 
 interface IProps {
   address?: `0x${string}`;
@@ -24,5 +29,7 @@ const useContract = (props: IProps) => {
   return { data, isLoading, isSuccess, write };
 };
 
+
 export default useContract;
+
 

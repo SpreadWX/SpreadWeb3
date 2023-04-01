@@ -2,33 +2,114 @@ import React from "react";
 import { Box, Tabs, Tab, Divider } from "@mui/material";
 import Overview from "./overview";
 import Activity from "./activity";
-import useContract from "@/hooks/useContract";
+import {useLocation} from "react-router-dom";
+import {useAccount, useContractRead, UseContractReadConfig} from "wagmi";
+
+import abi from "@/assets/abi/ContentPool.abi.json";
+const contract = '0x249d15412f15a8E5D8fc1730E6eA8A97Df515557';
+
+type Content = {
+    id?: number;
+    promoter: "" | `0x${string}`;
+    headline: string;
+    description: string;
+    typ: number;
+    status: number ;
+    budget: number;
+    url: string;
+    previewUrl: string;
+    total: number;
+    createTime: number;
+    requestedCnt: number;
+    completedCnt: number;
+    balance: number;
+    requestQualificationId: number;
+    claimQualificationId: number;
+}
+
+type RequestQualification = {
+    id: number;
+    flows: number;
+    tags?: string[];
+}
+
+type ClaimQualification = {
+    id: number;
+    likes: number;
+    comments: number;
+    mirrors: number;
+}
+
+type ContentVo = {
+    content: Content;
+    requestQualification: RequestQualification;
+    claimQualification: ClaimQualification;
+}
+
 function a11yProps(index: number) {
   return {
     id: `simple-tab-${index}`,
     "aria-controls": `simple-tabpanel-${index}`,
   };
 }
-
 const Detail = () => {
-    const id:string = "1"
-    const args = {
-        functionName: "getContents",
-        args: [id],
-    }
-    const { data, isLoading, isSuccess, write } = useContract(args);
-    console.log("data: " + data);
-    console.log("isLoading: " + isLoading);
-    console.log("isSuccess: " + isSuccess);
-    console.log("write: " + write);
+    const { address = '', isConnected } = useAccount();
+    console.log("address:", address, "isConnected:", isConnected);
+    const query = new URLSearchParams(useLocation()?.search)
+    var id =query.get('id')
+    console.log("id==>", id)
+    const result =  useContractRead({
+        address: contract,
+        abi: abi,
+        functionName: 'getContent',
+        args:   [id],
+        overrides: { from: isConnected ? address:'0x350b7BD90B1A94A022ACc7f1B9B6907FAc872bdd'},
+    } as UseContractReadConfig<typeof abi, 'getContent'>)
+    const res = result.data as any[]
+    console.log("res:", res)
 
-  const [value, setValue] = React.useState(0);
+    const contentVo:ContentVo = {
+        content: {
+            id: res[0][0],
+            promoter: res[0][1],
+            headline: res[0][2],
+            description: res[0][3],
+            typ: res[0][4],
+            status: res[0][5],
+            budget: res[0][6],
+            url: res[0][7],
+            previewUrl: res[0][8],
+            total: res[0][9],
+            createTime: res[0][10],
+            requestedCnt: res[0][11][0],
+            completedCnt: res[0][11][1],
+            balance: res[0][11][2],
+            requestQualificationId: res[0][11][3],
+            claimQualificationId: res[0][11][4],
+        },
+        requestQualification: {
+            id: res[1][0],
+            flows: res[1][1],
+            tags: res[1][2],
+        },
+        claimQualification: {
+            id: res[2][0],
+            likes: res[2][1],
+            comments: res[2][2],
+            mirrors: res[2][3]
+        }
+    }
+    console.log("content:", contentVo?.content)
+    console.log("requestQualification:", contentVo?.requestQualification)
+    console.log("claimQualification:", contentVo?.claimQualification)
+
+    const [value, setValue] = React.useState(0);
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
   return (
     <div className="container-box">
-      <h2 style={{ marginBottom: "30px" }}>HeadLineXXXXX</h2>
+      <h2 style={{ marginBottom: "30px" }}>{contentVo?.content.headline}</h2>
       <Divider light style={{ borderColor: "rgba(255, 255, 255, 0.5)" }} />
       <Box sx={{ borderBottom: 1, borderColor: "divider" }} style={{ margin: '20px 0'}}>
         <Tabs
@@ -41,10 +122,10 @@ const Detail = () => {
         </Tabs>
       </Box>
       <div className="pd-tb-30" hidden={value !== 0}>
-        <Overview></Overview>
+        <Overview vo={contentVo}></Overview>
       </div>
       <div className="pd-tb-30" hidden={value !== 1}>
-        <Activity></Activity>
+        <Activity vo={contentVo}></Activity>
       </div>
     </div>
   );

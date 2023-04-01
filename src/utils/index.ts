@@ -27,3 +27,9 @@ export const stringAvatar = (name: string) => ({
   sx: { bgcolor: stringToColor(name) },
   children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
 });
+
+export const formatDate = (timestamp: number) => {
+  const date = new Date(timestamp);
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  return date.toLocaleString('en-US', options);
+}

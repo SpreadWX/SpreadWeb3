@@ -3,6 +3,8 @@ import { Input, Box, Divider, Button, Grid, Card, CardContent, Link, } from '@mu
 import SearchIcon from '@mui/icons-material/Search';
 import './index.less';
 import { useNavigate } from 'react-router-dom';
+import { formatDate } from '@/utils';
+
 interface IProps {
   dataArr: any[];
 }
@@ -25,14 +27,14 @@ const ShowInfo = (props: IProps) => {
       <Divider light style={{ borderColor: 'rgba(255, 255, 255, 0.5)'}} />
       
       <Grid container spacing={6} style={{ paddingTop: '40px' }}>
-      {dataArr.map((i) => (
+      {dataArr.map((i,index) => (
         <Grid item xs={6} sm={4} md={3} key={i}>
-        <Card sx={{ width: 200, height: 200 }} className={`card-item  card${i}`} onClick={() => navigate('/detail')}>
+        <Card sx={{ width: 200, height: 200 }} className={`card-item  card${index+1}`} onClick={() => navigate(`/detail?id=${i[0].toString()}`)}>
           <CardContent style={{ textAlign: 'center'}}>
-              <div className="item-title1">HeadLineXXX</div>
-              <div className="item-title2">0xbcdeee....</div>
-              <div className="item-title3">Award: 100CT</div>
-              <div className="item-title4">Created: 2023-01-02</div>
+              <div className="item-title1">{i[2]}</div>
+              <div className="item-title2">{i[1]}</div>
+              <div className="item-title3">Award: {i[6]?.toString()} CT</div>
+              <div className="item-title4">Created: {formatDate(parseInt(i[10]?.toString()))}</div>
           </CardContent>
         </Card>
       </Grid>

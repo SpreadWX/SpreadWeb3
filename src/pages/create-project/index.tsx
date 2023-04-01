@@ -17,7 +17,7 @@ import { useNavigate } from 'react-router-dom';
 import useContract from "@/hooks/useContract";
 
 import abi from '@/assets/abi/ContentPool.abi.json';
-const contractAddr = "0xA0fFb312b367F1559979acd51218EbE2a61137C6"
+const contract = '0x249d15412f15a8E5D8fc1730E6eA8A97Df515557';
 
 type ContentDto = {
   headline: string;
@@ -93,7 +93,7 @@ function CreateProject() {
 
   const functionName = "publishContent"
   const args: IProps = {
-    address: contractAddr,
+    address: contract,
     abi: abi,
     functionName: functionName,
     args: [{
@@ -120,6 +120,10 @@ function CreateProject() {
   }
   const { data, isLoading, isSuccess, write } = useContract(args)
   const navigate = useNavigate();
+
+  if (isSuccess) {
+    window.location.href="/";
+  }
 
   return (
     <div className={styles.createProjectContainer}>
@@ -247,8 +251,7 @@ function CreateProject() {
                         }}/>}
                       label={item.label}
                     />
-                    ))
-                    }
+                    ))}
                     </FormGroup>
                 </div>
               </FormControl>
@@ -282,10 +285,10 @@ function CreateProject() {
             </FormControl>
           </Stack>
           <Button type="submit" sx={{ marginTop: '100px' }} size="large" variant="contained" disabled={!write || isLoading} >
-            {isLoading ? 'Create Content...' : 'Create Content'}
+            {isLoading ? 'Creating...' : 'Create Content'}
           </Button>
           {isSuccess && (
-              <div>
+            <div>
                 Successfully Create Content!
                 <div>
                   <a href={`https://etherscan.io/tx/${data?.hash}`}>Etherscan</a>

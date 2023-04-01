@@ -2,6 +2,19 @@
   {
     "inputs": [
       {
+        "internalType": "uint256",
+        "name": "_contentId",
+        "type": "uint256"
+      }
+    ],
+    "name": "claim",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "address",
         "name": "_token",
         "type": "address"
@@ -46,6 +59,107 @@
     "type": "event"
   },
   {
+    "inputs": [
+      {
+        "components": [
+          {
+            "components": [
+              {
+                "internalType": "string",
+                "name": "headline",
+                "type": "string"
+              },
+              {
+                "internalType": "string",
+                "name": "description",
+                "type": "string"
+              },
+              {
+                "internalType": "enum model.ContentType",
+                "name": "typ",
+                "type": "uint8"
+              },
+              {
+                "internalType": "enum model.ContentStatus",
+                "name": "status",
+                "type": "uint8"
+              },
+              {
+                "internalType": "uint256",
+                "name": "budget",
+                "type": "uint256"
+              },
+              {
+                "internalType": "string",
+                "name": "url",
+                "type": "string"
+              },
+              {
+                "internalType": "string",
+                "name": "previewUrl",
+                "type": "string"
+              },
+              {
+                "internalType": "uint256",
+                "name": "total",
+                "type": "uint256"
+              }
+            ],
+            "internalType": "struct model.ContentDto",
+            "name": "contentDto",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "internalType": "uint256",
+                "name": "flows",
+                "type": "uint256"
+              },
+              {
+                "internalType": "string[]",
+                "name": "tags",
+                "type": "string[]"
+              }
+            ],
+            "internalType": "struct model.RequestQualificationDto",
+            "name": "requestDto",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "internalType": "uint256",
+                "name": "likes",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "comments",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "mirrors",
+                "type": "uint256"
+              }
+            ],
+            "internalType": "struct model.ClaimQualificationDto",
+            "name": "claimDto",
+            "type": "tuple"
+          }
+        ],
+        "internalType": "struct model.PublishContentDto",
+        "name": "_dto",
+        "type": "tuple"
+      }
+    ],
+    "name": "publishContent",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
     "anonymous": false,
     "inputs": [
       {
@@ -71,6 +185,19 @@
     "type": "event"
   },
   {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_contentId",
+        "type": "uint256"
+      }
+    ],
+    "name": "requestBroadcast",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
     "anonymous": false,
     "inputs": [
       {
@@ -90,6 +217,45 @@
     "type": "event"
   },
   {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_minBudget",
+        "type": "uint256"
+      }
+    ],
+    "name": "setMinBudget",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_stakingAmount",
+        "type": "uint256"
+      }
+    ],
+    "name": "setStakingAmount",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "stake",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
     "anonymous": false,
     "inputs": [
       {
@@ -107,6 +273,13 @@
     ],
     "name": "Staked",
     "type": "event"
+  },
+  {
+    "inputs": [],
+    "name": "unstake",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
     "anonymous": false,
@@ -178,19 +351,6 @@
       }
     ],
     "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_contentId",
-        "type": "uint256"
-      }
-    ],
-    "name": "claim",
-    "outputs": [],
-    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -425,94 +585,150 @@
       {
         "components": [
           {
-            "internalType": "uint256",
-            "name": "id",
-            "type": "uint256"
-          },
-          {
-            "internalType": "address",
-            "name": "promoter",
-            "type": "address"
-          },
-          {
-            "internalType": "string",
-            "name": "headline",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "description",
-            "type": "string"
-          },
-          {
-            "internalType": "enum model.ContentType",
-            "name": "typ",
-            "type": "uint8"
-          },
-          {
-            "internalType": "enum model.ContentStatus",
-            "name": "status",
-            "type": "uint8"
-          },
-          {
-            "internalType": "uint256",
-            "name": "budget",
-            "type": "uint256"
-          },
-          {
-            "internalType": "string",
-            "name": "url",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "previewUrl",
-            "type": "string"
-          },
-          {
-            "internalType": "uint256",
-            "name": "total",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "createTime",
-            "type": "uint256"
+            "components": [
+              {
+                "internalType": "uint256",
+                "name": "id",
+                "type": "uint256"
+              },
+              {
+                "internalType": "address",
+                "name": "promoter",
+                "type": "address"
+              },
+              {
+                "internalType": "string",
+                "name": "headline",
+                "type": "string"
+              },
+              {
+                "internalType": "string",
+                "name": "description",
+                "type": "string"
+              },
+              {
+                "internalType": "enum model.ContentType",
+                "name": "typ",
+                "type": "uint8"
+              },
+              {
+                "internalType": "enum model.ContentStatus",
+                "name": "status",
+                "type": "uint8"
+              },
+              {
+                "internalType": "uint256",
+                "name": "budget",
+                "type": "uint256"
+              },
+              {
+                "internalType": "string",
+                "name": "url",
+                "type": "string"
+              },
+              {
+                "internalType": "string",
+                "name": "previewUrl",
+                "type": "string"
+              },
+              {
+                "internalType": "uint256",
+                "name": "total",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "createTime",
+                "type": "uint256"
+              },
+              {
+                "components": [
+                  {
+                    "internalType": "uint256",
+                    "name": "requestedCnt",
+                    "type": "uint256"
+                  },
+                  {
+                    "internalType": "uint256",
+                    "name": "completedCnt",
+                    "type": "uint256"
+                  },
+                  {
+                    "internalType": "uint256",
+                    "name": "balance",
+                    "type": "uint256"
+                  },
+                  {
+                    "internalType": "uint256",
+                    "name": "requestQualificationId",
+                    "type": "uint256"
+                  },
+                  {
+                    "internalType": "uint256",
+                    "name": "claimQualificationId",
+                    "type": "uint256"
+                  }
+                ],
+                "internalType": "struct model.ContentData",
+                "name": "data",
+                "type": "tuple"
+              }
+            ],
+            "internalType": "struct model.Content",
+            "name": "content",
+            "type": "tuple"
           },
           {
             "components": [
               {
                 "internalType": "uint256",
-                "name": "requestedCnt",
+                "name": "id",
                 "type": "uint256"
               },
               {
                 "internalType": "uint256",
-                "name": "completedCnt",
+                "name": "flows",
+                "type": "uint256"
+              },
+              {
+                "internalType": "string[]",
+                "name": "tags",
+                "type": "string[]"
+              }
+            ],
+            "internalType": "struct model.RequestQualification",
+            "name": "requestQualification",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "internalType": "uint256",
+                "name": "id",
                 "type": "uint256"
               },
               {
                 "internalType": "uint256",
-                "name": "balance",
+                "name": "likes",
                 "type": "uint256"
               },
               {
                 "internalType": "uint256",
-                "name": "requestQualificationId",
+                "name": "comments",
                 "type": "uint256"
               },
               {
                 "internalType": "uint256",
-                "name": "claimQualificationId",
+                "name": "mirrors",
                 "type": "uint256"
               }
             ],
-            "internalType": "struct model.ContentData",
-            "name": "data",
+            "internalType": "struct model.ClaimQualification",
+            "name": "claimQualification",
             "type": "tuple"
           }
         ],
-        "internalType": "struct model.Content",
+        "internalType": "struct model.ContentVo",
         "name": "_content",
         "type": "tuple"
       }
@@ -977,120 +1193,6 @@
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "components": [
-          {
-            "components": [
-              {
-                "internalType": "string",
-                "name": "headline",
-                "type": "string"
-              },
-              {
-                "internalType": "string",
-                "name": "description",
-                "type": "string"
-              },
-              {
-                "internalType": "enum model.ContentType",
-                "name": "typ",
-                "type": "uint8"
-              },
-              {
-                "internalType": "enum model.ContentStatus",
-                "name": "status",
-                "type": "uint8"
-              },
-              {
-                "internalType": "uint256",
-                "name": "budget",
-                "type": "uint256"
-              },
-              {
-                "internalType": "string",
-                "name": "url",
-                "type": "string"
-              },
-              {
-                "internalType": "string",
-                "name": "previewUrl",
-                "type": "string"
-              },
-              {
-                "internalType": "uint256",
-                "name": "total",
-                "type": "uint256"
-              }
-            ],
-            "internalType": "struct model.ContentDto",
-            "name": "contentDto",
-            "type": "tuple"
-          },
-          {
-            "components": [
-              {
-                "internalType": "uint256",
-                "name": "flows",
-                "type": "uint256"
-              },
-              {
-                "internalType": "string[]",
-                "name": "tags",
-                "type": "string[]"
-              }
-            ],
-            "internalType": "struct model.RequestQualificationDto",
-            "name": "requestDto",
-            "type": "tuple"
-          },
-          {
-            "components": [
-              {
-                "internalType": "uint256",
-                "name": "likes",
-                "type": "uint256"
-              },
-              {
-                "internalType": "uint256",
-                "name": "comments",
-                "type": "uint256"
-              },
-              {
-                "internalType": "uint256",
-                "name": "mirrors",
-                "type": "uint256"
-              }
-            ],
-            "internalType": "struct model.ClaimQualificationDto",
-            "name": "claimDto",
-            "type": "tuple"
-          }
-        ],
-        "internalType": "struct model.PublishContentDto",
-        "name": "_dto",
-        "type": "tuple"
-      }
-    ],
-    "name": "publishContent",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_contentId",
-        "type": "uint256"
-      }
-    ],
-    "name": "requestBroadcast",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "inputs": [],
     "name": "requestQualificationId",
     "outputs": [
@@ -1125,45 +1227,6 @@
       }
     ],
     "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_minBudget",
-        "type": "uint256"
-      }
-    ],
-    "name": "setMinBudget",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_stakingAmount",
-        "type": "uint256"
-      }
-    ],
-    "name": "setStakingAmount",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_amount",
-        "type": "uint256"
-      }
-    ],
-    "name": "stake",
-    "outputs": [],
-    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -1228,13 +1291,6 @@
       }
     ],
     "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "unstake",
-    "outputs": [],
-    "stateMutability": "nonpayable",
     "type": "function"
   }
 ]

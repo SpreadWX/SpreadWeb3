@@ -1,35 +1,41 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import ShowInfo from '@/components/show-info/index';
-import useContract from '@/hooks/useContract';
+import {useAccount, useContractRead,UseContractReadConfig} from "wagmi";
 
-type PageQueryCondition = {
-    // 当前页面
+import cpAbi from "@/assets/abi/ContentPool.abi.json";
+const contract = '0x249d15412f15a8E5D8fc1730E6eA8A97Df515557';
+
+type QueryDto = {
     pageIndex: number;
-    // 每页数据条数
     pageSize: number;
-    // 是否逆序
     isDescend: boolean;
-}
+};
 
-const Home = () => {
-    const condition: PageQueryCondition = {
-        pageIndex: 1,
-        pageSize: 9,
-        isDescend: true,
+const Home =  () => {
+    const { address = '', isConnected } = useAccount();
+    const query : QueryDto = {pageIndex:0,pageSize:20,isDescend:true}
+    const result =  useContractRead({
+        address: contract,
+        abi: cpAbi,
+        functionName: 'getContents',
+        args:   [query],
+        overrides: { from: isConnected ? address:'0x350b7BD90B1A94A022ACc7f1B9B6907FAc872bdd' },
+    }as UseContractReadConfig<typeof cpAbi, 'getContents'>)
+    const res = result.data as any[]
+
+    var arr =[[1,0x350b7BD90B1A94A022ACc7f1B9B6907FAc872bdd,"title","desc",0,0,10],
+        [1,0x350b7BD90B1A94A022ACc7f1B9B6907FAc872bdd,"title1","desc",0,0,10],
+        [1,0x350b7BD90B1A94A022ACc7f1B9B6907FAc872bdd,"title2","desc",0,0,10]]
+    if (res?.length >1)
+    {
+        arr= res[1]
+        console.log(arr)
     }
-    const args = {
-        functionName: "getContents",
-        args: [condition],
-    }
-    const { data, isLoading, isSuccess, write } = useContract(args);
-    console.log("data: " + data);
-    console.log("isLoading: " + isLoading);
-    console.log("isSuccess: " + isSuccess);
-    console.log("write: " + write);
+
 
   return (
   <div className="container-box">
-   <ShowInfo dataArr={ [1, 2, 3] }/>
+   <ShowInfo dataArr={arr}/>
   </div>
   );
 }

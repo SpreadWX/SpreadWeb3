@@ -1,6 +1,50 @@
 import React from "react";
 import { Divider } from '@mui/material';
-const Activity = () => {
+
+type Content = {
+    id?: number;
+    promoter: "" | `0x${string}`;
+    headline: string;
+    description: string;
+    typ: number;
+    status: number ;
+    budget: number;
+    url: string;
+    previewUrl: string;
+    total: number;
+    createTime: number;
+    requestedCnt: number;
+    completedCnt: number;
+    balance: number;
+    requestQualificationId: number;
+    claimQualificationId: number;
+}
+
+type RequestQualification = {
+    id: number;
+    flows: number;
+    tags?: string[];
+}
+
+type ClaimQualification = {
+    id: number;
+    likes: number;
+    comments: number;
+    mirrors: number;
+}
+
+type ContentVo = {
+    content: Content;
+    requestQualification: RequestQualification;
+    claimQualification: ClaimQualification;
+}
+
+const Activity = (props) => {
+    const { vo } = props
+    console.log("===============activity=================")
+    console.log("content: ",vo.content);
+    console.log("request: ",vo.requestQualification);
+    console.log("claim: ",vo.claimQualification);
   return (
   <div>
     <div className="activity">
