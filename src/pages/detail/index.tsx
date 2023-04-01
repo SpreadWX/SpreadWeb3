@@ -101,14 +101,14 @@ const Detail = () => {
     //         mirrors: res[2][3]
     //     }
     // }
-    const currentDate = new Date().getSeconds();
+    const currentDate = Date.now();
     const contentVo:ContentVo = {
         content: {
             id: parseInt(id==null?"0":id),
             promoter: "0x350b7BD90B1A94A022ACc7f1B9B6907FAc872bdd",
-            headline: "test",
-            description: "test",
-            typ: 0,
+            headline: "test_5",
+            description: "test_5",
+            typ: 1,
             status: 0,
             budget: 1,
             url: "",
@@ -123,11 +123,11 @@ const Detail = () => {
         },
         requestQualification: {
             id: 0,
-            flows: 0,
+            flows: 1,
             tags: [],
         },
         claimQualification: {
-            id: 1,
+            id: 0,
             likes: 1,
             comments: 1,
             mirrors: 1
